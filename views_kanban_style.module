@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * @file views_kanban_style.module
+ */
+
+/**
+ * Implements hook_views_api() 
+ */
+function views_kanban_style_views_api() {
+    return array('api' => 3);
+}

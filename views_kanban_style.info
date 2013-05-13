@@ -1,0 +1,9 @@
+name = Views Kanban style
+description = A style plugin for Views
+package = Views
+
+files[] = views_kanban_style.info
+files[] = views_kanban_style.module
+files[] = views_kanban_style_plugin_style_kanban.inc
+dependencies = views
+core = 7.x
