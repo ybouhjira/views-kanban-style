@@ -28,7 +28,17 @@ class views_kanban_style_plugin_style_kanban extends views_plugin_style {
     }
 
     function render() {
-        return '<h2>Hello world</h2>';
+        $output = "";
+        $output .= "<table>";
+        foreach ($this->view->result as $node) {
+            $output .= "<tr>";
+            $output .= "<td> {$node->node_title} </td>";
+            $output .= "<td> {$node->nid} </td>";
+            $output .= "<td> {$node->node_created} </td>";
+            $output .= "</tr>";
+        }
+        $output .= "</table>";
+        return $output;
     }
 
 }
