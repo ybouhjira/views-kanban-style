@@ -28,16 +28,9 @@ class views_kanban_style_plugin_style_kanban extends views_plugin_style {
     }
 
     function render() {
-        $output = "";
-        $output .= "<table>";
-        foreach ($this->view->result as $node) {
-            $output .= "<tr>";
-            $output .= "<td> {$node->node_title} </td>";
-            $output .= "<td> {$node->nid} </td>";
-            $output .= "<td> {$node->node_created} </td>";
-            $output .= "</tr>";
-        }
-        $output .= "</table>";
+        ob_start();
+        include('render_output.tpl.php');
+        $output = ob_get_clean();
         return $output;
     }
 
