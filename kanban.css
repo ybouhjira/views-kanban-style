@@ -1,7 +1,7 @@
 
 .gridster {
     background: gray;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .gridster li {
