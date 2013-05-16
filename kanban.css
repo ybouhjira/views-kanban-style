@@ -4,21 +4,29 @@
     white-space: nowrap;
     padding: 0;
 }
-.views-kanban-column {
+.views-kanban-column-wrapper {
+    display: inline-block;
+    margin: 0!important;
+    padding: 0 !important;
+    vertical-align: top;
     background: #f0eeee;
     border: 1px darkgray solid;
+}
+
+.views-kanban-column {
+    
     display: inline-block;
     vertical-align: top;
     margin: 0!important;
     padding: 0 !important;
 }
 
-.views-kanban-column h2 {
+.views-kanban-column-wrapper h2 {
     margin: 4px;
     padding: 4px;
 }
 
-.views-kanban-column .button-fold{
+.views-kanban-column-wrapper .button-fold{
     float: right;
     margin-top: 4px;
 }

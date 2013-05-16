@@ -3,7 +3,7 @@
             attach: function() {
                 // Same height hack
                 var maxHeight = 0;
-                var cols = $('.views-kanban-column').each(function() {
+                var cols = $('.views-kanban-column-wrapper').each(function() {
                     var h = $(this).outerHeight(true);
                     if (h > maxHeight)
                         maxHeight = h;
