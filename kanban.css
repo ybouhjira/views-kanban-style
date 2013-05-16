@@ -1,0 +1,13 @@
+
+.gridster {
+    background: gray;
+    overflow: scroll;
+}
+
+.gridster li {
+    list-style: none;
+    border-radius: 2px;
+    background: white;
+    box-shadow: 0 0 5px black;
+    border: 1px solid darkgray;
+}

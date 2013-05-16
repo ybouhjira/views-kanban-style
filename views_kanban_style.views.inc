@@ -9,13 +9,14 @@ function views_kanban_style_views_plugins() {
         'style' => array(
             'kanban' => array(
                 'title' => t('Kanban'),
+                'theme' => 'views_view_kanban',
                 'no ui' => FALSE,
                 'handler' => 'views_kanban_style_plugin_style_kanban',
                 'uses row plugin' => FALSE,
                 'uses fields' => TRUE,
                 'uses options' => TRUE,
                 'type' => 'normal',
-                'uses grouping' => FALSE,
+                'uses grouping' => TRUE,
             )
         )
     );

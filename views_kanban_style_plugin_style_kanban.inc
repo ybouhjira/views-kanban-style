@@ -5,33 +5,30 @@
  */
 class views_kanban_style_plugin_style_kanban extends views_plugin_style {
 
-    /**
-     * Defines custom options 
-     */
-    function option_definition() {
-        $options = parent::option_definition();
-        $options['field'] = array('default' => '');
-        return $options;
-    }
+    function render_grouping_sets($sets, $level = 0) {
+        $output = '';
 
-    /**
-     * Options configuration form
-     */
-    function options_form(&$form, &$form_state) {
-        parent::options_form($form, $form_state);
-        $form['field'] = array(
-            '#title' => 'field',
-            '#type' => 'select',
-            '#options' => array('field1', 'field2', 'field3'),
-            '#description' => t('The field used to group the rows'),
-        );
-    }
+        // copy pasted from here: 
+        // http://api.drupal.org/api/views/plugins!views_plugin_style.inc/function/views_plugin_style%3A%3Arender_grouping_sets/7
+        $index = 0;
+        foreach ($sets as $key => $set) {
+            $output .= theme($this->theme_functions(), array(
+                'view' => $this->view,
+                'options' => $this->options,
+                'grouping_level' => $level,
+                'rows' => $set['rows'],
+                'title' => $set['group'],
+                'column' => $index++,
+            ));
+        }
+        unset($this->view->row_index);
 
-    function render() {
-        ob_start();
-        include('render_output.tpl.php');
-        $output = ob_get_clean();
-        return $output;
+        // Add gridster HTML markup
+        drupal_add_js(drupal_get_path('module', 'views_kanban_style') . '/gridster.min.js');
+        drupal_add_js(drupal_get_path('module', 'views_kanban_style') . '/kanban.js');
+        drupal_add_css(drupal_get_path('module', 'views_kanban_style') . '/kanban.css');
+        drupal_add_css(drupal_get_path('module', 'views_kanban_style') . '/gridster.min.css');
+        return "<div class='gridster'><ul>$output</ul></div>";
     }
 
 }
