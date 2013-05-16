@@ -14,7 +14,11 @@
                 });
                 
                 // making the card draggable and sortable using jQueryUI
-                $('.views-kanban-column').sortable();
+                $('.views-kanban-column').each(function(){
+                    $(this).sortable({
+                        connectWith: '.' + $(this).attr('class').match(/(?=\s*)views-col-(.*)(?=\s*)/)[0]
+                    });
+                });
             }
         };
     })(jQuery);
