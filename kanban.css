@@ -1,13 +1,48 @@
 
-.gridster {
-    background: gray;
+.views-kanban {
     overflow: auto;
+    white-space: nowrap;
+    padding: 0;
+}
+.views-kanban-column {
+    background: #f0eeee;
+    border: 1px darkgray solid;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0!important;
+    padding: 0 !important;
 }
 
-.gridster li {
-    list-style: none;
-    border-radius: 2px;
+.views-kanban-column h2 {
+    margin: 4px;
+    padding: 4px;
+}
+
+.views-kanban-column .button-fold{
+    float: right;
+    margin-top: 4px;
+}
+
+.views-kanban-card {
+    border: 2px solid darkgray;
+    display: block;
     background: white;
-    box-shadow: 0 0 5px black;
-    border: 1px solid darkgray;
+    color: #5a5a5a;
+    border-bottom-color: rgba(0, 0, 0, 0.3);
+    width: 200px;
+    margin: 4px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+    padding: 4px;
+    border-radius: 3px;
+    cursor: move;
+    -webkit-transition: all 300ms ease-out;
+    -moz-transition: all 300ms ease-out;
+    -ms-transition: all 300ms ease-out;
+    -o-transition: all 300ms ease-out;
+    transition: all 300ms ease-out;
+}
+
+.views-kanban-card:hover {
+    box-shadow: 0 5px 10px royalblue;
+    border: 2px blue solid;
 }
