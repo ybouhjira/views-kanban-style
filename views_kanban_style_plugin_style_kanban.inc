@@ -24,8 +24,8 @@ class views_kanban_style_plugin_style_kanban extends views_plugin_style {
         unset($this->view->row_index);
 
         // Add gridster HTML markup
-        drupal_add_js('system', 'ui.draggable');
-        drupal_add_js('system', 'ui.sortable');
+        drupal_add_library('system', 'ui.draggable');
+        drupal_add_library('system', 'ui.sortable');
         drupal_add_js(drupal_get_path('module', 'views_kanban_style') . '/kanban.js');
         drupal_add_css(drupal_get_path('module', 'views_kanban_style') . '/kanban.css');
         return "<div class='views-kanban'>$output</div>";
