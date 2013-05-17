@@ -5,6 +5,28 @@
  */
 class views_kanban_style_plugin_style_kanban extends views_plugin_style {
 
+    /**
+      * Defines custom options 
+      */
+     function option_definition() {
+         $options = parent::option_definition();
+         $options['values'] = array('default' => '');
+         return $options;
+     }
+ 
+     /**
+      * Options configuration form
+      */
+     function options_form(&$form, &$form_state) {
+         parent::options_form($form, $form_state);
+         $form['values'] = array(
+             '#title' => 'Values',
+             '#type' => 'textfield',
+             '#default_value' => $this->options['values'],
+             '#description' => t('The values to use as columns headers (semicolon separated)'),
+         );
+     }
+    
     function render_grouping_sets($sets, $level = 0) {
         $output = '';
 

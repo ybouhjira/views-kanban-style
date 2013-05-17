@@ -16,7 +16,8 @@
                 // making the card draggable and sortable using jQueryUI
                 $('.views-kanban-column').each(function(){
                     $(this).sortable({
-                        connectWith: '.' + $(this).attr('class').match(/(?=\s*)views-col-(.*)(?=\s*)/)[0]
+                        connectWith: '.' + $(this).attr('class').match(/(?=\s*)views-col-(.*)(?=\s*)/)[0],
+                        placeholder: 'views-kanban-placeholder'
                     });
                 });
             }
