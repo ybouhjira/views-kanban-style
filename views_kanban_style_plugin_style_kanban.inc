@@ -38,13 +38,16 @@ class views_kanban_style_plugin_style_kanban extends views_plugin_style {
         // the user have filled the field in the style options                         
         if (!empty($values_option)) {
             // We move the values that have results in $sets to $new_sets
-            
+
             foreach ($values_option as $option) {
                 if (array_key_exists($option, $sets)) {
                     $new_sets[$option] = $sets[$option];
                     unset($sets[$option]);
                 } else {
-                    $new_sets[$option] = array('group' => $option);
+                    $new_sets[$option] = array(
+                        'group' => $option,
+                        'rows' => array()
+                    );
                 }
             }
             // then add the others with array_merge
