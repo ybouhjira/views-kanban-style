@@ -18,7 +18,8 @@
     vertical-align: top;
     margin: 0!important;
     padding: 0 !important;
-    min-width: 200px
+    min-width: 200px;
+    min-height: 100px;
 }
 
 .views-kanban-column-wrapper h2 {
