@@ -38,7 +38,6 @@ class views_kanban_style_plugin_style_kanban extends views_plugin_style {
         // the user have filled the field in the style options                         
         if (!empty($values_option)) {
             // We move the values that have results in $sets to $new_sets
-
             foreach ($values_option as $option) {
                 if (array_key_exists($option, $sets)) {
                     $new_sets[$option] = $sets[$option];
@@ -50,14 +49,9 @@ class views_kanban_style_plugin_style_kanban extends views_plugin_style {
                     );
                 }
             }
-            // then add the others with array_merge
-            array_merge($new_sets, $sets);
         }
 
-        $index = 0;
-        $offset = 0;
         $grouping_field = $this->options['grouping'][0]['field'];
-        //$grouping_field_alias = $this->view->field[$grouping_field]->field_alias;
         foreach ($new_sets as $set) {
             $output .= theme($this->theme_functions(), array(
                 'view' => $this->view,
@@ -65,10 +59,13 @@ class views_kanban_style_plugin_style_kanban extends views_plugin_style {
                 'grouping_level' => $level,
                 'rows' => $set['rows'],
                 'title' => $set['group'],
-                'column' => $index++,
-                'rendered_rows' => array_slice($this->rendered_fields, $offset, count($set['rows'])),
+                'rendered_rows' => array_map(
+                        function($row_index) {
+                            return $this->rendered_fields[$row_index];
+                        }, array_keys($set['rows'])
+                ),
+                'grouping_field' => $grouping_field,
             ));
-            $offset += count($set['rows']);
         }
         unset($this->view->row_index);
 
