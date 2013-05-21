@@ -3,18 +3,17 @@
     /**
      * giv the same height to the Kanban's columns
      */
-    function same_height() {
-        var maxHeight = 0;
-        var cols = $('.views-kanban-column-wrapper').each(function() {
-            var h = $(this).outerHeight(true);
-            if (h > maxHeight)
-                maxHeight = h;
-        });
-        cols.css('height', maxHeight + 'px');
-        $(cols[0]).closest('.views-kanban').css({
-            'height': (maxHeight + 20) + 'px'
-        });
-    }
+//    function same_height() {
+//        alert('same height');
+//        var maxHeight = 0;
+//        var cols = $('.views-kanban-column').each(function() {
+//            var h = $(this).outerHeight(true);
+//            if (h > maxHeight)
+//                maxHeight = h;
+//        });
+//        cols.css('height', maxHeight + 'px');
+//        $(cols[0]).closest('.views-kanban').css('height', (maxHeight + 20) + 'px');
+//    }
 
     /**
      * Enables sorting using jQueryUI .sortable() method
@@ -35,6 +34,7 @@
                 connectWith: '.' + connect_class,
                 placeholder: 'views-kanban-placeholder',
                 dropOnEmpty: true
+                //stop: same_height
             });
         });
     }
@@ -53,7 +53,7 @@
 
     Drupal.behaviors.views_kanban_style = {
         attach: function() {
-            same_height();
+            //same_height();
             enable_sorting();
             enable_column_folding();
 

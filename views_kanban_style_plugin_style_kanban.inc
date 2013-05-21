@@ -27,6 +27,9 @@ class views_kanban_style_plugin_style_kanban extends views_plugin_style {
         );
     }
 
+    /**
+     * Rendering the rows after they have been grouped
+     */
     function render_grouping_sets($sets, $level = 0) {
         $output = '';
 
@@ -51,32 +54,49 @@ class views_kanban_style_plugin_style_kanban extends views_plugin_style {
             }
         }
 
-        $grouping_field = $this->options['grouping'][0]['field'];
+        // FINDING THE FIELDS EXCLUDED FROM DISPLAY
+        $excluded_fields = array();
+        foreach ($this->view->field as $field) {
+            if ($field->options['exclude']) {
+                array_push($excluded_fields, $field->field);
+            }
+        }
+
+        // RENDERING THINGS
         foreach ($new_sets as $set) {
-            $output .= theme($this->theme_functions(), array(
+            $theme_vars = array(
                 'view' => $this->view,
                 'options' => $this->options,
                 'grouping_level' => $level,
                 'rows' => $set['rows'],
                 'title' => $set['group'],
                 'rendered_rows' => array_map(
-                        function($row_index) {
-                            return $this->rendered_fields[$row_index];
+                        function($row_index) use ($excluded_fields) {
+                            $result = $this->rendered_fields[$row_index];
+                            foreach ($excluded_fields as $field) {
+                                unset($result[$field]);
+                            }
+                            return $result;
                         }, array_keys($set['rows'])
                 ),
-                'grouping_field' => $grouping_field,
-            ));
+            );
+            $output .= theme($this->theme_functions(), $theme_vars);
         }
         unset($this->view->row_index);
+        dpm($this->view->field['field_status']->options['exclude']);
 
+        // CSS & JAVASCRIPT
         // Adding jQueryUI components
         drupal_add_library('system', 'ui.draggable');
         drupal_add_library('system', 'ui.sortable');
         drupal_add_library('system', 'ui.droppable');
+
         // The javascript & css for the style
         drupal_add_js(drupal_get_path('module', 'views_kanban_style') . '/kanban.js');
         drupal_add_css(drupal_get_path('module', 'views_kanban_style') . '/kanban.css');
+
         // We wrap the groups in a div.views-kanban
+        $grouping_field = $this->options['grouping'][0]['field'];
         return "<div class='views-kanban' data-grouping-field='$grouping_field'>$output</div>";
     }
 
