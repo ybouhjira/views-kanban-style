@@ -54,8 +54,10 @@ class views_kanban_style_plugin_style_kanban extends views_plugin_style {
             array_merge($new_sets, $sets);
         }
 
-        // http://api.drupal.org/api/views/plugins!views_plugin_style.inc/function/views_plugin_style%3A%3Arender_grouping_sets/7
         $index = 0;
+        $offset = 0;
+        $grouping_field = $this->options['grouping'][0]['field'];
+        //$grouping_field_alias = $this->view->field[$grouping_field]->field_alias;
         foreach ($new_sets as $set) {
             $output .= theme($this->theme_functions(), array(
                 'view' => $this->view,
@@ -64,7 +66,9 @@ class views_kanban_style_plugin_style_kanban extends views_plugin_style {
                 'rows' => $set['rows'],
                 'title' => $set['group'],
                 'column' => $index++,
+                'rendered_rows' => array_slice($this->rendered_fields, $offset, count($set['rows'])),
             ));
+            $offset += count($set['rows']);
         }
         unset($this->view->row_index);
 
@@ -76,7 +80,7 @@ class views_kanban_style_plugin_style_kanban extends views_plugin_style {
         drupal_add_js(drupal_get_path('module', 'views_kanban_style') . '/kanban.js');
         drupal_add_css(drupal_get_path('module', 'views_kanban_style') . '/kanban.css');
         // We wrap the groups in a div.views-kanban
-        return "<div class='views-kanban'>$output</div>";
+        return "<div class='views-kanban' data-grouping-field='$grouping_field'>$output</div>";
     }
 
 }

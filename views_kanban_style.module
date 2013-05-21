@@ -10,3 +10,22 @@
 function views_kanban_style_views_api() {
     return array('api' => 3);
 }
+
+/**
+ * Implements hook_menu()
+ */
+function views_kanban_style_menu() {
+    return array(
+        'views_kanban_style/update/%' => array(
+            'page callback' => 'ajax_update_node',
+            'page arguments' => array(1),
+            'access arguments' => array('access content'),
+            'type' => MENU_CALLBACK,
+        ),
+    );
+}
+
+function ajax_update_node() {
+    //db_update('', array());
+    drupal_json_output(TRUE);
+}
