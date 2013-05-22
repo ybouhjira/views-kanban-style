@@ -17,10 +17,11 @@
     display: inline-block;
     vertical-align: top;
     margin: 0!important;
-    padding: 0 !important;
+    padding: 10px !important;
     min-width: 200px;
     min-height: 100px;
     -webkit-transition: width 500ms ease-out;
+    height: 100%;
 }
 
 .views-kanban-column-wrapper h2 {

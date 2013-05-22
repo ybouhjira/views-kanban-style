@@ -16,9 +16,9 @@ function views_kanban_style_views_api() {
  */
 function views_kanban_style_menu() {
     return array(
-        'views_kanban_style/update/%' => array(
+        'views_kanban_style/update/%/%/%' => array(
             'page callback' => 'ajax_update_node',
-            'page arguments' => array(1),
+            'page arguments' => array(1, 2, 3),
             'access arguments' => array('access content'),
             'type' => MENU_CALLBACK,
         ),

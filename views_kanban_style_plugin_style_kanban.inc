@@ -44,12 +44,8 @@ class views_kanban_style_plugin_style_kanban extends views_plugin_style {
             foreach ($values_option as $option) {
                 if (array_key_exists($option, $sets)) {
                     $new_sets[$option] = $sets[$option];
-                    unset($sets[$option]);
                 } else {
-                    $new_sets[$option] = array(
-                        'group' => $option,
-                        'rows' => array()
-                    );
+                    $new_sets[$option] = array('group' => $option, 'rows' => array());
                 }
             }
         }
@@ -64,26 +60,38 @@ class views_kanban_style_plugin_style_kanban extends views_plugin_style {
 
         // RENDERING THINGS
         foreach ($new_sets as $set) {
+            // find the rendered fields
+            $rendered_rows = array();
+            foreach (array_keys($set['rows']) as $row_id) {
+                $rendered_rows[$row_id] = $this->rendered_fields[$row_id];
+            }
+            
+            // remove excluded fields (views ui option)
+            foreach ($rendered_rows as &$rendered_row) {
+                foreach ($excluded_fields as $field) {
+                    unset($rendered_row[$field]);
+                }
+            }
+
+            // Build an array that have node IDs as values and row_ids as keys
+            // that way we the node in $rendered_rows will have the same index
+            // as it's nid in $nids array
+            $nids = array();
+            foreach ($set['rows'] as $row_id => $row) {
+                $nids[$row_id] = $row->nid;
+            }
+
+            // passe things to theme functions
             $theme_vars = array(
                 'view' => $this->view,
-                'options' => $this->options,
-                'grouping_level' => $level,
                 'rows' => $set['rows'],
                 'title' => $set['group'],
-                'rendered_rows' => array_map(
-                        function($row_index) use ($excluded_fields) {
-                            $result = $this->rendered_fields[$row_index];
-                            foreach ($excluded_fields as $field) {
-                                unset($result[$field]);
-                            }
-                            return $result;
-                        }, array_keys($set['rows'])
-                ),
+                'rendered_rows' => $rendered_rows,
+                'nids' => $nids,
             );
             $output .= theme($this->theme_functions(), $theme_vars);
         }
         unset($this->view->row_index);
-        dpm($this->view->field['field_status']->options['exclude']);
 
         // CSS & JAVASCRIPT
         // Adding jQueryUI components
