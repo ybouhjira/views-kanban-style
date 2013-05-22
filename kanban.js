@@ -21,7 +21,12 @@
                 dropOnEmpty: true,
                 receive: function(event, ui) {
                     // triggered when a list has received an item from another list.
-                    //update_node($(ui.item));
+                    var node = $(ui.item);
+                    var nid = node.attr('data-nid');
+                    var field = node.closest('.views-kanban').attr('data-grouping-field');
+                    var value = node.closest('.views-kanban-column-wrapper').find('h2').html();
+                    alert(nid+ ', '+ field +', ' + value);
+                    //update_node(nid, field, value);
                 }
             });
         });
