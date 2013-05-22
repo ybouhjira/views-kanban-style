@@ -25,8 +25,7 @@
                     var nid = node.attr('data-nid');
                     var field = node.closest('.views-kanban').attr('data-grouping-field');
                     var value = node.closest('.views-kanban-column-wrapper').find('h2').html();
-                    alert(nid+ ', '+ field +', ' + value);
-                    //update_node(nid, field, value);
+                    update_node(nid, field, value);
                 }
             });
         });
@@ -51,7 +50,7 @@
      * @param {String} value The value that will be given to the field
      */
     function update_node(nid, field, value) {
-        $.getJSON('views_kanban_style/update/' + nid + '/' + field + '/' + value, function(data) {
+        $.getJSON('views_kanban_style_update/' + nid + '/' + field + '/' + value, function(data) {
             if (!data)
                 alert('could not update node');
         });

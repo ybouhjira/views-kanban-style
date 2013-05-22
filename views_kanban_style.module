@@ -16,7 +16,7 @@ function views_kanban_style_views_api() {
  */
 function views_kanban_style_menu() {
     return array(
-        'views_kanban_style/update/%/%/%' => array(
+        'views_kanban_style_update/%/%/%' => array(
             'page callback' => 'ajax_update_node',
             'page arguments' => array(1, 2, 3),
             'access arguments' => array('access content'),
@@ -25,7 +25,12 @@ function views_kanban_style_menu() {
     );
 }
 
-function ajax_update_node() {
-    //db_update('', array());
-    drupal_json_output(TRUE);
+function ajax_update_node($nid, $field, $value) {
+    $node = node_load($nid);
+    if($node) {
+        $node->{$field}['und'][0]['value'] = $value;
+        node_save($node);
+        drupal_json_output(TRUE);
+    } 
+    
 }
